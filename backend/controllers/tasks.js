@@ -14,7 +14,7 @@ export const fetchAllTasks = async (req,res)=>{
     }
 }
 
-export const fetchSinglePost = async (req,res)=>{
+export const fetchSingleTask = async (req,res)=>{
     const { id }  = req.params;
     console.log(id);
     try {
