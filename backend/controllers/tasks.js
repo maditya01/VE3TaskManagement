@@ -2,12 +2,10 @@
 import query from '../models/db.js'
 
 export const fetchAllTasks = async (req,res)=>{
-    console.log("came here!!");
     try {
         const rows = await query(
             `SELECT taskId, taskCreator, taskTitle, taskMessage from tasks`
         );
-        console.log(rows);
         res.status(200).json({data:rows});
     } catch (error) {
         console.log(error);
@@ -16,7 +14,6 @@ export const fetchAllTasks = async (req,res)=>{
 
 export const fetchSingleTask = async (req,res)=>{
     const { id }  = req.params;
-    console.log(id);
     try {
         const row = await query(
             `select taskId,taskCreator,taskTitle,taskMessage from tasks where taskId = ${id}`
