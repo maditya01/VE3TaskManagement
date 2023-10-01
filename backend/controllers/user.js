@@ -1,30 +1,47 @@
 import query from '../models/db.js'
+import bcrypt from 'bcryptjs';
+
 export const signupUser = async (req, res) => {
-    const details = req.body;
-    console.log(details);
+    const { username, useremail, userpassword } = req.body;
     try {
-        const row = await query(`INSERT INTO users (username, useremail, userpassword) values ('${details.username}', '${details.useremail}', '${details.userpassword}')`);
-        if (row.affectedRows) {
-            res.status(200).json({ message: "succesfully user has been created!!!" });
+        const prevR = await query(`select useremail from users where useremail = '${useremail}'`);
+        console.log(prevR);
+        if (prevR.length === 0) {
+            const hashedPassword = await bcrypt.hash(userpassword, 6);
+            const row = await query(`INSERT INTO users (username, useremail, userpassword) values ('${username}', '${useremail}', '${hashedPassword}')`);
+            if (row.affectedRows) {
+                res.status(200).json({ message: "succesfully user has been created!!!" });
+            }
+        } else {
+            res.status(404).json({ message: "Already registered mailId" });
         }
     } catch (error) {
+        res.status(404).json({ message: "please correct sign-up data" });
         console.log(error);
     }
 }
 export const signinUser = async (req, res) => {
-    const details = req.body;
-    console.log(details);
+    const { username, useremail, userpassword } = req.body;
     try {
-        const row = await query(`SELECT useremail,userpassword from users where useremail = '${details.useremail}' `)
-        console.log(row.length);
-        if (row.length > 0 && details.userpassword === row[0].userpassword) {
-            console.log("same password!!!")
-            res.status(200).json({ message: 'successfully authenticated!!!' });
+        const row = await query(`SELECT useremail,userpassword from users where useremail = '${useremail}' `)
+        console.log(row);
+        if (row.length > 0) {
+            const isPasswordCorrect = await bcrypt.compare(
+                userpassword,
+                row[0].userpassword
+            );
+            if (isPasswordCorrect) {
+                console.log("same password!!!")
+                res.status(200).json({ message: 'successfully authenticated!!!' });
+            }else{
+                return res.status(400).json({ message: "Invalid Credentials" });
+            }
         } else {
             res.status(409).json({ message: 'Login failure please write correct data' })
         }
     } catch (error) {
         console.log(error);
+        res.status(409).json({ message: 'Login failure please write correct data' })
     }
 
 }
