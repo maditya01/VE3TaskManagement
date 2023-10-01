@@ -16,7 +16,6 @@ export const Auth = ({ setUser }) => {
         if (isSignup) {
             axios.post(`http://localhost:3001/users/signup`, userData)
                 .then(response => {
-                    console.log(response);
                     localStorage.setItem('profile', userData?.useremail)
                     setUser(userData?.useremail)
                     setUserData({
@@ -27,15 +26,14 @@ export const Auth = ({ setUser }) => {
                     navigate('/')
                 }).catch(
                     error => {
-                        console.log(error);
+                        const message = error.response.data.message;
+                        navigate('/errorHandler', { state: { message } })
                     });
-        }else{
-            console.log("came inside login")
+        } else {
             //Login Handler.
-            axios.post(`http://localhost:3001/users/signin`,userData)
-                 .then(response=>{
-                     console.log(response.status);
-                     if(response.status === 200){
+            axios.post(`http://localhost:3001/users/signin`, userData)
+                .then(response => {
+                    if (response.status === 200) {
                         localStorage.setItem('profile', userData?.useremail)
                         setUser(userData?.useremail)
                         setUserData({
@@ -44,23 +42,24 @@ export const Auth = ({ setUser }) => {
                             userpassword: ''
                         })
                         navigate('/');
-                     }
-                 }).catch(
-                    error=>{
-                        console.log("inside error");
-                        console.log(error.response)
                     }
-                 )
+                }).catch(
+                    error => {
+                        const message = error.response.data.message;
+                        navigate('/errorHandler', { state: { message } })
+                    }
+                )
         }
     }
     return (
         <>
             <div className="flex items-center justify-center flex-col space-y-6">
                 <h1 className="text-3xl font-bold ">
-                    Authentication!!!
+                    {isSignup ? 'User Signup' : 'User Login'}
                 </h1>
                 <form onSubmit={submitHandler} className='flex flex-col space-y-6 bg-red-200 p-10 rounded-md'>
                     {isSignup && <input
+                        required
                         onChange={(e) => setUserData({ ...userData, username: e.target.value })}
                         type="text"
                         className="w-72 rounded-md"
@@ -68,12 +67,14 @@ export const Auth = ({ setUser }) => {
                         placeholder="Enter your name " />
                     }
                     <input
+                        required
                         onChange={(e) => setUserData({ ...userData, useremail: e.target.value })}
                         type="email"
                         className="w-72 rounded-md"
                         id="email"
                         placeholder="Email " />
                     <input
+                        required
                         onChange={(e) => setUserData({ ...userData, userpassword: e.target.value })}
                         type="password"
                         className="w-72 rounded-md"
@@ -84,7 +85,6 @@ export const Auth = ({ setUser }) => {
                     </div>
                 </form>
                 <button onClick={() => {
-                    console.log("here button onclick")
                     setIsSignup((prevIsSignup) => !prevIsSignup);
                 }} className='m-2 text-lg font-bold px-5 py-1 bg-indigo-500 rounded-md'>{isSignup ? 'Already have an account' : 'Do not have an account'}</button>
             </div>
