@@ -1,24 +1,18 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import Tasks from '../Tasks/Tasks'
-import Form from '../Form/Form'
+import Navbar from '../Navbar/Navbar.jsx';
+const Home = ({ taskList }) => {
 
-const Home = () => {
-    const [taskList, setTaskList] = useState(null);
     return (
-        <div className="text-white  p-5 m-5 flex flex-wrap justify-around">
-            <div className ="flex flex-wrap flex-col">
+        <>
+            <Navbar />
+            <div className="text-black  p-5 m-5 flex flex-col">
                 <h1 className="text-3xl font-bold"> Your Task </h1>
-                <Tasks taskList={taskList} />
-            </div>
-            <div className = "flex flex-wrap flex-col">
-                <div>
-                <h1 className='text-3xl font-bold'> Create New Task</h1>
-                </div>
-                <div>
-                  <Form setTaskList={setTaskList} />
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Tasks taskList={taskList} />
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
