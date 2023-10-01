@@ -7,7 +7,7 @@ const Form = ({ setTaskList }) => {
   const [taskData, setTaskData] = useState({
     title: '',
     message: '',
-    creator:localStorage.getItem('profile')
+    creator: localStorage.getItem('profile')
   });
   const submitHandler = (e) => {
     e.preventDefault();
@@ -19,7 +19,8 @@ const Form = ({ setTaskList }) => {
         navigate('/')
       })
       .catch(error => {
-        console.error(error);
+        const message = error.response.data.message;
+        navigate('/errorHandler', { state: { message } })
       });
     /*useState is asynchronous so here you can not get the updateed taskList array 
     you can use useEffect to see the taskList.
