@@ -4,6 +4,7 @@ import Home from './components/Home/Home';
 import { useState } from 'react';
 import { Auth } from './components/Auth/Auth';
 import Form from './components/Form/Form';
+import ErrorHandler from './components/Error/ErrorHandler';
 
 function App() {
   const [taskList, setTaskList] = useState(null);
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={user ? <Home taskList={taskList} setUser={setUser}/> : <Navigate to ="/auth" />}></Route>
         {user && <Route path="/createtask" element={<Form setTaskList={setTaskList} />}></Route>}
         <Route path="/auth" element={<Auth setUser={setUser} />}></Route>
+        <Route path = "/errorHandler" element = {<ErrorHandler />}></Route>
       </Routes>
     </BrowserRouter>
   );
