@@ -1,11 +1,10 @@
 import React from 'react'
 
 const Task = ({ task }) => {
-  console.log("here!!!");
-  console.log(task?.taskTitle);
+  // console.log("come")
   return (
     <>
-      <div className = "bg-black m-4 flex flex-col p-2">
+      <div className = "bg-red-100 m-4 flex flex-col p-2 w-26">
         <p>{task.taskId}</p>
         <div>{task.taskTitle}</div>
         <div>{task.taskMessage}</div>
