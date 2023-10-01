@@ -36,7 +36,7 @@ export const updateTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
     const task = req.body;
-    console.log(task);
+    // console.log(task);
     try {
         const row = await query(`INSERT INTO tasks (taskCreator, taskTitle, taskMessage) values ('${task.creator}', '${task.title}', '${task.message}')`);
         if (row.affectedRows) {
