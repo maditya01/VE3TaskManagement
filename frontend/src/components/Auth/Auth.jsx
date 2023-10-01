@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-export const Auth = () => {
+export const Auth = ({ setUser }) => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false)
     const [isSignup, setIsSignup] = useState(true);
@@ -17,16 +17,40 @@ export const Auth = () => {
             axios.post(`http://localhost:3001/users/signup`, userData)
                 .then(response => {
                     console.log(response);
+                    localStorage.setItem('profile', userData?.useremail)
+                    setUser(userData?.useremail)
+                    setUserData({
+                        username: '',
+                        useremail: '',
+                        userpassword: ''
+                    })
+                    navigate('/')
                 }).catch(
                     error => {
                         console.log(error);
                     });
-            setUserData({
-                username:'',
-                useremail:'',
-                userpassword:''
-            })
-            navigate('/')
+        }else{
+            console.log("came inside login")
+            //Login Handler.
+            axios.post(`http://localhost:3001/users/signin`,userData)
+                 .then(response=>{
+                     console.log(response.status);
+                     if(response.status === 200){
+                        localStorage.setItem('profile', userData?.useremail)
+                        setUser(userData?.useremail)
+                        setUserData({
+                            username: '',
+                            useremail: '',
+                            userpassword: ''
+                        })
+                        navigate('/');
+                     }
+                 }).catch(
+                    error=>{
+                        console.log("inside error");
+                        console.log(error.response)
+                    }
+                 )
         }
     }
     return (
