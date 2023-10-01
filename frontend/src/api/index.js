@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({baseURL: 'https://localhost:3001'});
-
+// console.log(API);
 export const fetchAllTasks = ()=>{API.get('/tasks')};
 export const fetchSingleTask = (id)=>{API.get(`/tasks/${id}`)}
 export const createTask = (newTask)=>{API.post(`/tasks`,newTask)};//Sending new task in body.
