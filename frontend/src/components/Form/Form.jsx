@@ -4,15 +4,14 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 const Form = ({ setTaskList }) => {
   const navigate = useNavigate();
-  const creator = "Aditya"
   const [taskData, setTaskData] = useState({
     title: '',
     message: '',
-    creator
+    creator:localStorage.getItem('profile')
   });
   const submitHandler = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/tasks', taskData)
+    axios.post('http://localhost:3001/tasks/', taskData)
       .then(response => {
         setTaskList({ taskData });
         console.log(response.data);

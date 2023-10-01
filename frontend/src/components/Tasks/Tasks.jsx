@@ -7,7 +7,9 @@ const Tasks = ({ taskList }) => {
   //Here we have to use useCallback hook.
   const fetchAllTasks = useCallback(async () => {
     console.log("inside fetchallTasks")
-    const { data } = await axios.get("http://localhost:3001/tasks");
+    const creator = localStorage.getItem('profile');
+    console.log(creator);
+    const { data } = await axios.get(`http://localhost:3001/tasks?query=${creator}`);
     console.log(data.data)
     setAllTasks(data.data);
   }, [])
