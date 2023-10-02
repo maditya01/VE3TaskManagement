@@ -13,17 +13,20 @@ const Task = ({ setTaskId, task, allTasks, setAllTasks }) => {
     axios.delete(`http://localhost:3001/tasks/${task.taskId}`).
       then((response) => {
         const remaintask = allTasks.filter((mtask) => mtask.taskId !== task.taskId)
-        console.log(remaintask);
         setAllTasks(remaintask);
-        console.log(response);
       }).
       catch((error) => {
         console.log(error);
       });
   }
+  const browseClick = ()=>{
+    setTaskId(task.taskId)
+    navigate(`/taskdetail/${task.taskId}`);
+  }
   return (
     <>
-      <div className="bg-red-100 m-4  p-4 w-26">
+      <div className="flex flex-col justify-items-stretch	 bg-red-100 m-4  p-4 w-26">
+        <div className='flex justify-between'>
         <Icon
           name="edit"
           tooltip="Edit"
@@ -32,19 +35,27 @@ const Task = ({ setTaskId, task, allTasks, setAllTasks }) => {
           onClick={iconClick}
         />
         <Icon
+          name="browse"
+          tooltip="Browse"
+          theme="light"
+          size="small"
+          onClick={browseClick}
+        />
+        <Icon
           name="delete"
           tooltip="Delete"
           theme="light"
           size="small"
           onClick={deleteClick}
         />
-        <div className='flex justify-between'>
-          <h1 className="text-xl font-bold ">Title - </h1>
-          <div className="bg-yellow-500">{task.taskTitle}</div>
         </div>
-        <div className='flex'>
+        <div className='border-solid flex justify-between'>
+          <h1 className="text-xl font-bold ">Title - </h1>
+          <div className="truncate">{task.taskTitle}</div>
+        </div>
+        <div className='border-solid flex justify-between'>
           <h1 className="text-xl font-bold">Message- </h1>
-          <div className="w-full bg-red-800">{task.taskMessage}</div>
+          <div className="truncate">{task.taskMessage}</div>
         </div>
       </div>
     </>
