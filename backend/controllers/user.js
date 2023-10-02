@@ -43,5 +43,4 @@ export const signinUser = async (req, res) => {
         console.log(error);
         res.status(409).json({ message: 'Login failure please write correct data' })
     }
-
 }
