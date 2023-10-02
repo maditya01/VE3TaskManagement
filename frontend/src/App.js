@@ -15,9 +15,9 @@ function App() {
   console.log(update);
   return (
     <Routes>
-      <Route path="/" element={user ? <Home setUpdate={setUpdate} taskList={taskList} setUser={setUser} taskId={taskId} setTaskId={setTaskId} /> : <Navigate to="/auth" />}></Route>
+      <Route path="/" element={user ? <Home setTaskId={setTaskId} taskList={taskList} setUser={setUser} /> : <Navigate to="/auth" />}></Route>
       {user && <Route path="/createtask" element={<Form update={update} setTaskId={setTaskId} taskId={taskId} setTaskList={setTaskList} />}></Route>}
-      {user && <Route path="/updatetask/:id" element ={<FormUpdate />}></Route>}
+      {user && <Route path="/updatetask/:id" element ={<FormUpdate taskId={taskId} />}></Route>}
       <Route path="/auth" element={<Auth setUser={setUser} />}></Route>
       <Route path="/errorHandler" element={<ErrorHandler message={message} />}></Route>
       <Route path="*" element={<Navigate to="/errorHandler" />} />

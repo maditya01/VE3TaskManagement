@@ -5,7 +5,6 @@ export const signupUser = async (req, res) => {
     const { username, useremail, userpassword } = req.body;
     try {
         const prevR = await query(`select useremail from users where useremail = '${useremail}'`);
-        console.log(prevR);
         if (prevR.length === 0) {
             const hashedPassword = await bcrypt.hash(userpassword, 6);
             const row = await query(`INSERT INTO users (username, useremail, userpassword) values ('${username}', '${useremail}', '${hashedPassword}')`);
@@ -24,14 +23,12 @@ export const signinUser = async (req, res) => {
     const { username, useremail, userpassword } = req.body;
     try {
         const row = await query(`SELECT useremail,userpassword from users where useremail = '${useremail}' `)
-        console.log(row);
         if (row.length > 0) {
             const isPasswordCorrect = await bcrypt.compare(
                 userpassword,
                 row[0].userpassword
             );
             if (isPasswordCorrect) {
-                console.log("same password!!!")
                 res.status(200).json({ message: 'successfully authenticated!!!' });
             }else{
                 return res.status(400).json({ message: "Invalid Credentials" });

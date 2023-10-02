@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
 
 import axios from 'axios';
-const Form = ({ update, taskId, setTaskId, setTaskList }) => {
-  const location = useLocation();
-  let path = "Create Task";
+const Form = ({setTaskList }) => {
+  let path = "Create New Task";
   const [taskData, setTaskData] = useState({
     title: '',
     message: '',
@@ -13,19 +12,17 @@ const Form = ({ update, taskId, setTaskId, setTaskList }) => {
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (taskId === null) {
-      axios.post('http://localhost:3001/tasks/', taskData)
-        .then(response => {
-          setTaskList({ taskData });
-          console.log(response.data);
-          setTaskData({ title: '', message: '' });
-          navigate('/')
-        })
-        .catch(error => {
-          const message = error.response.data.message;
-          navigate('/errorHandler', { state: { message } })
-        });
-    }
+    axios.post('http://localhost:3001/tasks/', taskData)
+      .then(response => {
+        setTaskList({ taskData });
+        console.log(response.data);
+        setTaskData({ title: '', message: '' });
+        navigate('/')
+      })
+      .catch(error => {
+        const message = error.response.data.message;
+        navigate('/errorHandler', { state: { message } })
+      });
     /*useState is asynchronous so here you can not get the updateed taskList array 
     you can use useEffect to see the taskList.
     */
@@ -45,7 +42,7 @@ const Form = ({ update, taskId, setTaskId, setTaskList }) => {
               required id="message" className="resize-none max-w-5xl	 rounded-md text-black textarea-primary  textarea-bordered" placeholder="Enter Task Description"></textarea>
           </div>
           <div className='px-2'>
-            <button type="submit" className='text-lg font-bold px-5 py-1 bg-indigo-500 rounded-md'>{path}</button>
+            <button type="submit" className='text-lg font-bold px-5 py-1 bg-indigo-500 rounded-md'>Submit</button>
           </div>
         </form>
       </div>

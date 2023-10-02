@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import Task from './Task/Task.jsx';
 import axios from 'axios';
 
-const Tasks = ({setUpdate, taskList, taskId, setTaskId }) => {
+const Tasks = ({setTaskId, taskList}) => {
   const [allTasks, setAllTasks] = useState([]);
   //Here we have to use useCallback hook.
   const fetchAllTasks = useCallback(async () => {
@@ -24,7 +24,7 @@ const Tasks = ({setUpdate, taskList, taskId, setTaskId }) => {
   }
   return (
     <>
-      {allTasks?.map((task)=>(<Task setUpdate = {setUpdate} task={task} setTaskId={setTaskId} allTasks={allTasks} setAllTasks={setAllTasks} />))}
+      {allTasks?.map((task)=>(<Task setTaskId={setTaskId} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />))}
     </>
   )
 }

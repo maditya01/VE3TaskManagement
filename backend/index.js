@@ -5,9 +5,6 @@ import userRoutes from './routes/user.js';
 import cors from 'cors';
 import bodyParser  from 'body-parser';
 
-// Follow this tutorial
-// https://blog.logrocket.com/build-rest-api-node-express-mysql/
-
 const app = express();
 dotenv.config();
 

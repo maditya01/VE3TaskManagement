@@ -3,9 +3,10 @@ import Icon from "react-crud-icons";
 import axios from 'axios';
 import "../../../../node_modules/react-crud-icons/dist/css/react-crud-icons.css";
 import { useNavigate } from 'react-router-dom';
-const Task = ({ setUpdate, task, setTaskId, allTasks, setAllTasks }) => {
+const Task = ({ setTaskId, task, allTasks, setAllTasks }) => {
   const navigate = useNavigate();
   const iconClick = () => {
+    setTaskId(task.taskId)
     navigate(`/updatetask/${task.taskId}`);
   }
   const deleteClick = async () => {
