@@ -3,12 +3,12 @@ import query from '../models/db.js'
 
 export const fetchAllTasks = async (req, res) => {
     const message = req.query;
-    console.log(message);
+    // console.log(message);
     try {
         const rows = await query(
             `SELECT taskId, taskCreator, taskTitle, taskMessage from tasks where taskCreator = '${message.query}'`
         );
-        console.log(rows);
+        // console.log(rows);
         res.status(200).json({ data: rows });
     } catch (error) {
         console.log(error);
@@ -19,7 +19,7 @@ export const fetchSingleTask = async (req, res) => {
     const { id } = req.params;
     try {
         const row = await query(
-            `select taskId,taskCreator,taskTitle,taskMessage from tasks where taskId = ${id}`
+            `select taskId,taskCreator,taskTitle,taskMessage from tasks where taskId = '${id}'`
         );
         console.log(row);
         res.status(200).json({ data: row });
@@ -29,9 +29,16 @@ export const fetchSingleTask = async (req, res) => {
 }
 
 export const updateTask = async (req, res) => {
+    const { title, message } = req.body;
     const { id } = req.params;
     try {
-
+        const rowUp = query(`update tasks set taskTitle = '${title}' taskMessage = '${message}'
+          where taskId = '${id}'
+          `)
+        console.log(rowUp);
+        if (rowUp.affectedRows) {
+            res.status(200).json({ message: "Update succesffuly!!!" });
+        }
     } catch (error) {
 
     }
@@ -51,10 +58,15 @@ export const createTask = async (req, res) => {
 }
 
 export const deleteTask = async (req, res) => {
-    const { _id } = req.params;
+    console.log(req.params);
+    const { id } = req.params;
     try {
-
+        const postRow = await query(`delete from tasks where taskId='${id}'`)
+        console.log(postRow)
+        if (postRow.affectedRows) {
+            res.status(200).json({ message: `${id} is deleted` });
+        }
     } catch (error) {
-
+        console.log(error);
     }
 }
