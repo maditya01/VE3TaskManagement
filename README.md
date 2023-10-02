@@ -38,7 +38,8 @@ After login
 Create New Task page
 ![image](https://github.com/maditya01/VE3TaskManagement/assets/60269271/2e2df5d7-fd22-4833-accf-dc0f53517371)
 
-After creating 2 tasks total 3 icons there Edit, Browse, Delete
+After creating 2 tasks <br />
+For each task there are total 3 icons Edit, Browse, Delete
 ![image](https://github.com/maditya01/VE3TaskManagement/assets/60269271/d96b03a0-47f6-45ff-b439-9eeb6fe3ccdf)
 
 After clicking on the Browse icon
