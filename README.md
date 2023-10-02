@@ -21,7 +21,7 @@ bcryptjs-> for encrypting and decrypting the user password
 URL is localhost or deployed url. <br />
 <br />
 GET: URL/tasks/?query=${creator}   Retrieve all the tasks for a creator. <br />
-POST: URL/tasks/    Create a new Post. <br />
+POST: URL/tasks/    Create a new task. <br />
 DELETE: URL/tasks/${taskId}  Delete a task. <br />
 PATCH: URL/tasks/${taskId}  Update a task. <br />
 
