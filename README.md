@@ -9,6 +9,7 @@ After that run npm install in the frontend folder and then run npm start.
 a) User is able to signup, login, and logout.<br />
 b) User is able to create a task that has a title and message. <br />
 c) User is able to delete and update a task. <br />
+d) User is able to view a task.<br />
 
 # Database used :: 
 Mysql <br />
