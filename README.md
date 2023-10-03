@@ -1,5 +1,9 @@
 # VE3TaskManagement
-VE3 Task Management Task
+VE3 Task Management Task <br />
+**Frontend** React, Tailwind CSS, Javascript, Html <br />
+**Backend** Nodejs, Expressjs <br />
+**Database** MySql <br />
+
 # How to run this project
 Create a Database (Dummy DataBase Provided) in Mysql. <br />
 Then run npm install in the backend folder and then node index.js <br /> 
